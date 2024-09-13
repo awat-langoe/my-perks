@@ -1,11 +1,25 @@
-import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Component, inject } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterOutlet } from "@angular/router";
+import { PerksService } from "./service/perks/perks.service";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+  ],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.scss",
 })
-export class AppComponent {}
+export class AppComponent {
+  private readonly perksService = inject(PerksService);
+  protected readonly perks$ = this.perksService.getPerks();
+}

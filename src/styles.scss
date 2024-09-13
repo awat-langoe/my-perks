@@ -1,5 +1,7 @@
 @use "@angular/material" as mat;
 
+@use "app/app.component-theme";
+
 @include mat.core();
 
 $my-perks-theme: mat.define-theme(
@@ -14,6 +16,8 @@ $my-perks-theme: mat.define-theme(
 
 :root {
   @include mat.all-component-themes($my-perks-theme);
+
+  @include app.theme($my-perks-theme);
 }
 
 @include mat.typography-hierarchy($my-perks-theme);

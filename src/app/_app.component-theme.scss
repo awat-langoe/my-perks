@@ -1,0 +1,13 @@
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  .app-perk-card {
+    background-color: mat.get-theme-color($theme, primary-container);
+    color: mat.get-theme-color($theme, on-primary-container);
+
+    --mat-card-subtitle-text-color: #{mat.get-theme-color(
+        $theme,
+        on-primary-container
+      )};
+  }
+}
