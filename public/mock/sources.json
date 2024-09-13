@@ -1,0 +1,30 @@
+[
+  {
+    "id": "source1",
+    "title": "Waitrose",
+    "color": "#578626",
+    "url": "https://www.waitrose.com/",
+    "lastSuccessfulScrapeTimestamp": "2024-08-05T12:01:00.000Z"
+  },
+  {
+    "id": "source2",
+    "title": "Tesco",
+    "color": "#00539f",
+    "url": "https://www.tesco.com/",
+    "lastSuccessfulScrapeTimestamp": "2024-08-12T12:02:00.000Z"
+  },
+  {
+    "id": "source3",
+    "title": "Sainsbury's",
+    "color": "#f06c00",
+    "url": "https://www.sainsburys.co.uk/",
+    "lastSuccessfulScrapeTimestamp": "2024-08-12T12:03:00.000Z"
+  },
+  {
+    "id": "source4",
+    "title": "Marks & Spencer",
+    "color": "#000000",
+    "url": "https://www.marksandspencer.com/",
+    "lastSuccessfulScrapeTimestamp": "2024-08-12T12:05:00.000Z"
+  }
+]
