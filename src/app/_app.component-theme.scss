@@ -1,6 +1,6 @@
 @use "@angular/material" as mat;
 
-@mixin theme($theme) {
+@mixin color($theme) {
   .app-perk-card {
     background-color: mat.get-theme-color($theme, primary-container);
     color: mat.get-theme-color($theme, on-primary-container);
@@ -9,5 +9,15 @@
         $theme,
         on-primary-container
       )};
+  }
+
+  .app-perk-action-button {
+    @include mat.button-color($theme, $color-variant: primary);
+  }
+}
+
+@mixin theme($theme) {
+  @if mat.theme-has($theme, color) {
+    @include color($theme);
   }
 }

@@ -1,6 +1,6 @@
 <article class="app-perk-grid">
   @for (perk of perks$ | async; track perk.id) {
-    <mat-card class="app-perk-card">
+    <mat-card class="app-perk-card" [appCustomTheme]="perk.source.color">
       <mat-card-header>
         <mat-card-title class="mat-title-large">{{
           perk.title
@@ -22,7 +22,12 @@
       }
 
       <mat-card-actions style="padding: 1.5rem 1rem 1rem 1rem">
-        <a mat-stroked-button target="_blank" [href]="perk.source.url">
+        <a
+          mat-stroked-button
+          class="app-perk-action-button"
+          target="_blank"
+          [href]="perk.source.url"
+        >
           <mat-icon>open_in_new</mat-icon>
 
           <span>{{ perk.source.title }}</span>
