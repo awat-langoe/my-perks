@@ -39,16 +39,22 @@ export class AppComponent {
     switchMap((value: string | null) => {
       return this.perks$.pipe(
         map((perks: Perk[]) => {
-          if (value === null) return perks;
+          const trimmedValue = value?.trim() ?? "";
+          if (trimmedValue.length === 0) return perks;
 
           return perks.filter((perk: Perk) => {
-            const valueLowerCase = value.toLowerCase();
+            const trimmedLowerCaseValue = trimmedValue.toLowerCase();
+
+            const title = perk.title.toLowerCase();
+            const description = perk.description?.toLowerCase();
+            const discounts = perk.discounts?.join("").toLowerCase();
+            const sourceTitle = perk.source.title.toLowerCase();
 
             return (
-              perk.title.toLowerCase().includes(valueLowerCase) ||
-              perk.description?.toLowerCase().includes(valueLowerCase) ||
-              perk.discounts?.join("").toLowerCase().includes(valueLowerCase) ||
-              perk.source.title.toLowerCase().includes(valueLowerCase)
+              title.includes(trimmedLowerCaseValue) ||
+              description?.includes(trimmedLowerCaseValue) ||
+              discounts?.includes(trimmedLowerCaseValue) ||
+              sourceTitle.includes(trimmedLowerCaseValue)
             );
           });
         }),

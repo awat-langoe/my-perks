@@ -22,4 +22,14 @@
   .search-field-icon-suffix {
     margin-right: 16px;
   }
+
+  &-input {
+    // Hide "clear" button as we are providing our own solution
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+      display: none;
+    }
+  }
 }

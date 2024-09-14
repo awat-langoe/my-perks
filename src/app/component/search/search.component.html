@@ -1,7 +1,15 @@
 <mat-form-field class="search-field" subscriptSizing="dynamic">
   <mat-icon matPrefix class="search-field-icon-prefix">search</mat-icon>
 
-  <input matInput placeholder="Search" [formControl]="searchFormControl" />
+  <input
+    #input
+    matInput
+    class="search-field-input"
+    type="search"
+    placeholder="Search"
+    [formControl]="searchFormControl"
+    (keydown.enter)="input.blur()"
+  />
 
   @if (showClearButton) {
     <button
