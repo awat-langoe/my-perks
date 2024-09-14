@@ -1,0 +1,16 @@
+<mat-form-field class="search-field" subscriptSizing="dynamic">
+  <mat-icon matPrefix class="search-field-icon-prefix">search</mat-icon>
+
+  <input matInput placeholder="Search" [formControl]="searchFormControl" />
+
+  @if (showClearButton) {
+    <button
+      mat-icon-button
+      matSuffix
+      class="shearch-field-icon-suffix"
+      (click)="searchFormControl.reset()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field>

@@ -7,9 +7,16 @@
 </header>
 
 <main>
-  <article class="app-perk-card-grid">
-    @for (perk of perks$ | async; track perk.id) {
-      <app-perk-card [perk]="perk" />
-    }
+  <article class="app-content">
+    <app-search
+      class="app-perk-search"
+      (value)="onSearchValueChanged($event)"
+    />
+
+    <div class="app-perk-card-grid">
+      @for (perk of filteredPerks$ | async; track perk.id) {
+        <app-perk-card [perk]="perk" />
+      }
+    </div>
   </article>
 </main>

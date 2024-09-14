@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.search-field {
+  --mdc-filled-text-field-container-shape: 0;
+  --mdc-filled-text-field-active-indicator-height: 0;
+  --mdc-filled-text-field-focus-active-indicator-height: 0;
+
+  width: 100%;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow:
+    rgba(0, 0, 0, 0.2) 0px 3px 5px -1px,
+    rgba(0, 0, 0, 0.14) 0px 6px 10px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
+
+  &-icon-prefix {
+    padding: 0 12px 0 16px;
+  }
+
+  &-icon-suffix {
+    margin-right: 16px;
+  }
+}
