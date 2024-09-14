@@ -1,6 +1,6 @@
 @use "@angular/material" as mat;
 
-@use "app/app.component-theme";
+@use "app/component/perk-card/perk-card.component-theme";
 
 @include mat.core();
 
@@ -25,7 +25,7 @@ $my-perks-theme-light: mat.define-theme(
   @include mat.system-level-colors($my-perks-theme-light);
   @include mat.system-level-typography($my-perks-theme-light);
 
-  @include app.theme($my-perks-theme-light);
+  @include perk-card.theme($my-perks-theme-light);
 }
 
 @include mat.typography-hierarchy($my-perks-theme-light);
@@ -62,6 +62,6 @@ body {
     @include mat.system-level-colors($my-perks-theme-dark);
     @include mat.system-level-typography($my-perks-theme-dark);
 
-    @include app.color($my-perks-theme-dark);
+    @include perk-card.color($my-perks-theme-dark);
   }
 }

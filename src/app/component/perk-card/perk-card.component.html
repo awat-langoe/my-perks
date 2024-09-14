@@ -1,0 +1,30 @@
+<mat-card class="perk-card" [appCustomTheme]="perk.source.color">
+  <mat-card-header>
+    <mat-card-title class="mat-title-large">{{ perk.title }}</mat-card-title>
+
+    @if (perk.discounts; as discounts) {
+      <mat-card-subtitle class="perk-card-subtitle mat-title-medium">{{
+        discounts
+      }}</mat-card-subtitle>
+    }
+  </mat-card-header>
+
+  @if (perk.description; as description) {
+    <mat-card-content class="perk-card-content mat-body-medium">
+      {{ description }}
+    </mat-card-content>
+  }
+
+  <mat-card-actions class="perk-card-actions">
+    <a
+      mat-stroked-button
+      class="perk-card-action-button"
+      target="_blank"
+      [href]="perk.source.url"
+    >
+      <mat-icon>open_in_new</mat-icon>
+
+      <span>{{ perk.source.title }}</span>
+    </a>
+  </mat-card-actions>
+</mat-card>

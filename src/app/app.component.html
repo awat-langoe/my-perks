@@ -1,38 +1,5 @@
-<article class="app-perk-grid">
+<article class="app-perk-card-grid">
   @for (perk of perks$ | async; track perk.id) {
-    <mat-card class="app-perk-card" [appCustomTheme]="perk.source.color">
-      <mat-card-header>
-        <mat-card-title class="mat-title-large">{{
-          perk.title
-        }}</mat-card-title>
-
-        @if (perk.discounts; as discounts) {
-          <mat-card-subtitle
-            class="mat-title-medium"
-            style="margin-top: 0.25rem"
-            >{{ discounts }}</mat-card-subtitle
-          >
-        }
-      </mat-card-header>
-
-      @if (perk.description; as description) {
-        <mat-card-content class="mat-body-medium" style="margin-top: 0.5rem">
-          {{ description }}
-        </mat-card-content>
-      }
-
-      <mat-card-actions style="padding: 1.5rem 1rem 1rem 1rem">
-        <a
-          mat-stroked-button
-          class="app-perk-action-button"
-          target="_blank"
-          [href]="perk.source.url"
-        >
-          <mat-icon>open_in_new</mat-icon>
-
-          <span>{{ perk.source.title }}</span>
-        </a>
-      </mat-card-actions>
-    </mat-card>
+    <app-perk-card [perk]="perk" />
   }
 </article>

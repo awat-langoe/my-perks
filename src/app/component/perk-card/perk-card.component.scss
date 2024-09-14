@@ -1,0 +1,15 @@
+.perk-card {
+  box-shadow: none;
+
+  &-subtitle {
+    margin-top: 0.25rem;
+  }
+
+  &-content {
+    margin-top: 0.5rem;
+  }
+
+  &-actions {
+    padding: 1.5rem 1rem 1rem 1rem;
+  }
+}
