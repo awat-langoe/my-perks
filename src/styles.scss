@@ -1,5 +1,5 @@
 @use "@angular/material" as mat;
-
+@use "palettes";
 @use "app/component/perk-card/perk-card.component-theme";
 
 @include mat.core();
@@ -8,8 +8,7 @@ $my-perks-theme-light: mat.define-theme(
   (
     color: (
       theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: palettes.$my-perks-brand-palette,
       use-system-variables: true,
       system-variables-prefix: md-sys-color,
     ),
@@ -45,8 +44,7 @@ body {
     (
       color: (
         theme-type: dark,
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
+        primary: palettes.$my-perks-brand-palette,
         use-system-variables: true,
         system-variables-prefix: md-sys-color,
       ),
