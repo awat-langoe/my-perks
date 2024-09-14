@@ -1,5 +1,15 @@
-<article class="app-perk-card-grid">
-  @for (perk of perks$ | async; track perk.id) {
-    <app-perk-card [perk]="perk" />
-  }
-</article>
+<header>
+  <mat-toolbar>
+    <img alt="Logo" src="favicon.ico" class="app-logo" />
+
+    <span>My Perks</span>
+  </mat-toolbar>
+</header>
+
+<main>
+  <article class="app-perk-card-grid">
+    @for (perk of perks$ | async; track perk.id) {
+      <app-perk-card [perk]="perk" />
+    }
+  </article>
+</main>
