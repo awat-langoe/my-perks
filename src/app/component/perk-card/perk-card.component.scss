@@ -7,8 +7,19 @@
   }
 
   &-content {
-    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
     flex: 1;
+    margin-top: 0.5rem;
+
+    &-description {
+      margin: 0;
+    }
+
+    &-timestamp {
+      margin: 0;
+    }
   }
 
   &-actions {

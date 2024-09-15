@@ -20,7 +20,7 @@
     "title": "£5 off when you spend £30",
     "description": "Spend £30 or more and get £5 off on your next purchase.",
     "discounts": ["£5 off £30"],
-    "scrapeTimestamp": "2024-09-12T10:15:00Z",
+    "scrapeTimestamp": "2024-09-05T10:15:00Z",
     "sourceId": "source3"
   },
   {
@@ -51,7 +51,7 @@
     "title": "Half Price on Cleaning Supplies",
     "description": "Grab cleaning supplies at 50% off for a limited time.",
     "discounts": ["50% off"],
-    "scrapeTimestamp": "2024-09-12T13:00:00Z",
+    "scrapeTimestamp": "2024-09-05T13:00:00Z",
     "sourceId": "source3"
   },
   {

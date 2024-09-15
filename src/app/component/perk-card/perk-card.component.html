@@ -9,11 +9,17 @@
     }
   </mat-card-header>
 
-  @if (perk.description; as description) {
-    <mat-card-content class="perk-card-content mat-body-medium">
-      {{ description }}
-    </mat-card-content>
-  }
+  <mat-card-content class="perk-card-content">
+    @if (perk.description; as description) {
+      <p class="perk-card-content-description mat-body-medium">
+        {{ description }}
+      </p>
+    }
+
+    <p class="perk-card-content-timestamp mat-label-medium">
+      {{ perk.scrapeTimestamp | date }}
+    </p>
+  </mat-card-content>
 
   <mat-card-actions class="perk-card-actions">
     <a

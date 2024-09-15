@@ -1,3 +1,4 @@
+import { DatePipe } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -13,6 +14,7 @@ import { Perk } from "../../service/perks/model/perk.model";
     MatCardModule,
     MatIconModule,
     CustomThemeDirective,
+    DatePipe,
   ],
   templateUrl: "./perk-card.component.html",
   styleUrl: "./perk-card.component.scss",
