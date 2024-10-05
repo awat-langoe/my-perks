@@ -4,10 +4,12 @@ import {
   isDevMode,
   provideZoneChangeDetection,
 } from "@angular/core";
+import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { provideRouter } from "@angular/router";
 import { provideServiceWorker } from "@angular/service-worker";
 import { routes } from "./app.routes";
+import { firebaseOptions } from "./firebase/firebase-options";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +21,6 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: "registerWhenStable:30000",
     }),
+    provideFirebaseApp(() => initializeApp(firebaseOptions)),
   ],
 };
