@@ -4,7 +4,13 @@ import {
   isDevMode,
   provideZoneChangeDetection,
 } from "@angular/core";
-import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
+import { getApp, initializeApp, provideFirebaseApp } from "@angular/fire/app";
+import {
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager,
+  provideFirestore,
+} from "@angular/fire/firestore";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { provideRouter } from "@angular/router";
 import { provideServiceWorker } from "@angular/service-worker";
@@ -22,5 +28,12 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: "registerWhenStable:30000",
     }),
     provideFirebaseApp(() => initializeApp(firebaseOptions)),
+    provideFirestore(() => {
+      return initializeFirestore(getApp(), {
+        localCache: persistentLocalCache({
+          tabManager: persistentMultipleTabManager(),
+        }),
+      });
+    }),
   ],
 };
