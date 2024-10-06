@@ -16,9 +16,25 @@
 
       @if (filteredPerks$ | async; as filteredPerks) {
         <div class="app-perk-card-grid">
-          @for (perk of filteredPerks$ | async; track perk.id) {
+          @for (perk of filteredPerks; track perk.id) {
             <app-perk-card [perk]="perk" />
+          } @empty {
+            <div class="app-perk-empty-container">
+              <p class="mat-body-medium" style="margin: 0">No perks found.</p>
+
+              <button mat-stroked-button (click)="loadPerks()">
+                <mat-icon>refresh</mat-icon>
+
+                <span>Try again</span>
+              </button>
+            </div>
           }
+        </div>
+      } @else {
+        <div class="app-perk-progress-container">
+          <mat-spinner [diameter]="48" />
+
+          <p class="mat-body-medium">Loading perks...</p>
         </div>
       }
     </article>
