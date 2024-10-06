@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { RouterOutlet } from "@angular/router";
 import {
@@ -27,18 +27,20 @@ import { PerksService } from "./service/perks/perks.service";
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.scss",
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   private readonly perksService = inject(PerksService);
-  private readonly perks$ = this.perksService.getPerks();
+  private readonly perks$ = new BehaviorSubject<Perk[] | null>(null);
 
   private readonly searchValue$ = new BehaviorSubject<string | null>(null);
 
-  protected readonly filteredPerks$ = this.searchValue$.pipe(
-    distinctUntilChanged(),
-    debounceTime(300),
-    switchMap((value: string | null) => {
-      return this.perks$.pipe(
-        map((perks: Perk[]) => {
+  protected readonly filteredPerks$ = this.perks$.pipe(
+    switchMap((perks: Perk[] | null) => {
+      return this.searchValue$.pipe(
+        distinctUntilChanged(),
+        debounceTime(300),
+        map((value: string | null) => {
+          if (perks === null) return [];
+
           const trimmedValue = value?.trim() ?? "";
           if (trimmedValue.length === 0) return perks;
 
@@ -66,6 +68,11 @@ export class AppComponent {
       });
     }),
   );
+
+  async ngOnInit(): Promise<void> {
+    const perks = await this.perksService.getPerks();
+    this.perks$.next(perks);
+  }
 
   onSearchValueChanged(value: string | null): void {
     this.searchValue$.next(value);

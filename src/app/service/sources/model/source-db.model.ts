@@ -1,5 +1,4 @@
-export interface Source {
-  id: string;
+export interface SourceDbModel {
   title: string;
   color: string;
   url: string;

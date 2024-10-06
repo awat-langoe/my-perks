@@ -1,31 +1,34 @@
-import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { map, Observable, shareReplay } from "rxjs";
+import { doc, Firestore, getDocFromServer } from "@angular/fire/firestore";
+import { SourceDbModel } from "./model/source-db.model";
 import { Source } from "./model/source.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class SourcesService {
-  private readonly sourceCacheBySourceId = new Map<
-    string,
-    Observable<Source | null>
-  >();
+  private readonly firestore = inject(Firestore);
 
-  private readonly httpClient = inject(HttpClient);
+  private readonly sourceById = new Map<string, Source | null>();
 
-  getSource(id: string): Observable<Source | null> {
-    const sourceCache$ = this.sourceCacheBySourceId.get(id);
-    if (sourceCache$ !== undefined) return sourceCache$;
+  async getSource(id: string): Promise<Source | null> {
+    const sourceCache = this.sourceById.get(id);
+    if (sourceCache !== undefined) return sourceCache;
 
-    const source$ = this.httpClient.get<Source[]>("mock/sources.json").pipe(
-      map((sources: Source[]) => {
-        return sources.find((source: Source) => source.id === id) ?? null;
-      }),
-      shareReplay(1),
-    );
-    this.sourceCacheBySourceId.set(id, source$);
+    const sourceDocRef = doc(this.firestore, "sources", id);
+    const sourceDocSnapshot = await getDocFromServer(sourceDocRef);
+    const sourceDbModel = sourceDocSnapshot.data() as SourceDbModel | undefined;
+    if (sourceDbModel === undefined) return null;
 
-    return source$;
+    const source: Source = {
+      id: sourceDocSnapshot.id,
+      title: sourceDbModel.title,
+      color: sourceDbModel.color,
+      url: sourceDbModel.url,
+      lastSuccessfulRun: sourceDbModel.lastSuccessfulRun,
+    };
+    this.sourceById.set(id, source);
+
+    return source;
   }
 }

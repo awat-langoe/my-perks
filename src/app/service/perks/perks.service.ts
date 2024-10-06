@@ -1,46 +1,59 @@
-import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { defaultIfEmpty, forkJoin, map, Observable, switchMap } from "rxjs";
-import { Source } from "../sources/model/source.model";
+import {
+  collectionGroup,
+  DocumentData,
+  Firestore,
+  getDocsFromCache,
+  getDocsFromServer,
+  QueryDocumentSnapshot,
+} from "@angular/fire/firestore";
+import { MetadataService } from "../metadata/metadata.service";
 import { SourcesService } from "../sources/sources.service";
-import { PerkApiModel } from "./model/perk-api.model";
+import { PerkDbModel } from "./model/perk-db.model";
 import { Perk } from "./model/perk.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class PerksService {
+  private readonly firestore = inject(Firestore);
+
+  private readonly metadataService = inject(MetadataService);
+
   private readonly sourcesService = inject(SourcesService);
 
-  private readonly httpClient = inject(HttpClient);
+  async getPerks(): Promise<Perk[]> {
+    const perksQuery = collectionGroup(this.firestore, "perks");
 
-  getPerks(): Observable<Perk[]> {
-    return this.httpClient.get<PerkApiModel[]>("mock/perks.json").pipe(
-      switchMap((perkApiModels: PerkApiModel[]) => {
-        const perkObservables = forkJoin(
-          perkApiModels.map((perkApiModel: PerkApiModel) => {
-            return this.sourcesService.getSource(perkApiModel.sourceId).pipe(
-              map((source: Source | null): Perk[] => {
-                if (source === null) return [];
+    const isCacheValid = await this.metadataService.isCacheValid();
+    const perksQuerySnapshot = await (isCacheValid
+      ? getDocsFromCache(perksQuery)
+      : getDocsFromServer(perksQuery));
+    const perksPromises = perksQuerySnapshot.docs.map(
+      async (
+        perkQueryDocSnapshot: QueryDocumentSnapshot<DocumentData, DocumentData>,
+      ): Promise<Perk[]> => {
+        const perkDbModel = perkQueryDocSnapshot.data() as PerkDbModel;
+        const source = await this.sourcesService.getSource(
+          perkDbModel.sourceId,
+        );
+        if (source === null) return [];
 
-                return [
-                  {
-                    id: perkApiModel.id,
-                    title: perkApiModel.title,
-                    description: perkApiModel.description,
-                    discounts: perkApiModel.discounts,
-                    scrapeTimestamp: perkApiModel.scrapeTimestamp,
-                    source,
-                  },
-                ];
-              }),
-            );
-          }),
-        ).pipe(defaultIfEmpty([]));
+        return [
+          {
+            id: perkQueryDocSnapshot.id,
+            title: perkDbModel.title,
+            description: perkDbModel.description,
+            discounts: perkDbModel.discounts,
+            createdAt: perkDbModel.createdAt.toString(),
+            source,
+          },
+        ];
+      },
+    );
 
-        return perkObservables;
-      }),
-      map((perks: Perk[][]) => perks.flat()),
+    return await Promise.all(perksPromises).then((perks: Perk[][]) =>
+      perks.flat(),
     );
   }
 }
