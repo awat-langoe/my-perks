@@ -75,6 +75,10 @@ export class AppComponent implements OnInit {
     shareReplay(1),
   );
 
+  protected isPerksEmpty$ = this.perks$.pipe(
+    map((perks?: Perk[]) => perks?.length === 0),
+  );
+
   ngOnInit(): void {
     this.loadPerks();
   }

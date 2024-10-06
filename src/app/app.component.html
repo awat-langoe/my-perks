@@ -22,11 +22,13 @@
             <div class="app-perk-empty-container">
               <p class="mat-body-medium" style="margin: 0">No perks found.</p>
 
-              <button mat-stroked-button (click)="loadPerks()">
-                <mat-icon>refresh</mat-icon>
+              @if (isPerksEmpty$ | async) {
+                <button mat-stroked-button (click)="loadPerks()">
+                  <mat-icon>refresh</mat-icon>
 
-                <span>Try again</span>
-              </button>
+                  <span>Try again</span>
+                </button>
+              }
             </div>
           }
         </div>
