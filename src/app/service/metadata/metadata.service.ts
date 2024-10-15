@@ -34,6 +34,6 @@ export class MetadataService {
       return false;
     }
 
-    return lastRunFromCache.nanoseconds >= lastRunFromServer.nanoseconds;
+    return lastRunFromCache.seconds >= lastRunFromServer.seconds;
   }
 }
